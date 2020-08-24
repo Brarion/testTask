@@ -1,26 +1,28 @@
 import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import { RouteForm, IState } from './components/Form';
+
+import './App.css'
+
+const App: React.FC = () => {
+  const getData = () : IState => {
+    const localData = JSON.parse(localStorage.getItem('form') || '{}');
+
+    return {
+      title: localData.title ? localData.title : '',
+      author: localData.author ? localData.author : '',
+      type: localData.type ? localData.type : 'механик',
+      days: localData.days ? localData.days : 'Пн',
+      checkbox: localData.checkbox ? localData.checkbox : false,
+    }
+
+  }
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <main>
+      <h1>Информация о маршруте</h1>
+      <RouteForm value={getData()}/>
+    </main>
   );
-}
+};
 
 export default App;
